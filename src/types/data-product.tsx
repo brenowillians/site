@@ -1,3 +1,5 @@
+import { DataProductSize } from "./data-product-size";
+
 export interface DataProduct {
     idProduct?: number;
     name: string ;
@@ -11,4 +13,5 @@ export interface DataProduct {
     description: string ;
     idBrand: number; 
     idCategory: number; 
+    productSizes: DataProductSize[]
 }

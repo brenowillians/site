@@ -1,0 +1,76 @@
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.row>.col2 {
+  width: 55%
+}
+
+.row>.col1 {
+  width: 45%;
+  text-align: right;
+}
+
+.col1>img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 7px;
+}
+
+.col2 {
+  padding-top: 50px;
+}
+.row>div {
+  margin: 20px;
+}
+
+.col2>h1 {
+  font-size: 3vw;
+}
+
+.col2>p {
+  margin-right: 10%;
+  text-align: justify;
+  font-size: 1.5vw;
+  line-height: 1.3em;
+}
+
+
+
+.buttonCart {
+  padding: 6px 15px 6px 15px;
+  color: white;
+  background-color: #000;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 16px;
+  text-decoration: none;
+}
+
+.button-cart:hover {
+  background-color: white;
+  color: #000;
+  border: 1px solid black;
+}
+
+.wishlist {
+  text-decoration: none;
+  color: #555555;
+}
+
+.wishlist:hover {
+  color: #000;
+}
+
+.select {
+  font-size: 1vw;
+  width: auto;
+  margin-left: 1em;
+}
+
+.h1 {
+  font-size: 40px;
+  text-align: left;
+}

@@ -132,16 +132,16 @@ export default function Category() {
             </Fragment>
           ))}
         </div>
-        <div>
+        <div  className={styles.col2}>
           
-          <div className={styles.items2}>
+        <div className={styles.items2}>
         
           {products && products.map((product, index) => (
-                <div className={styles.card}>
+            <div className={styles.card}>
                 <img src="../Images/img-Nike1.jpg" alt="Shoe" style={{width:"100%"}} data-src></img>
                 <h3>{product.name}</h3>
                 <p className={styles.price}>${product.fullPrice}</p>
-                <p><a href="./info.html">Detalhes</a></p>
+                <p><a href={`../product/${product.idProduct}`}>Detalhes</a></p>
             </div>
           ))}
      

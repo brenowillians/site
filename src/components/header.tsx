@@ -6,6 +6,7 @@ import http from "@/utils/http"
 import React from "react"
 import { useEffect } from "react"
 
+
 export default function HeaderComponent() {
   const [categories, setCategories] =React.useState<DataCategory[]>([])
   const [brands, setBrands] =React.useState<DataBrand[]>([])
@@ -112,17 +113,23 @@ export default function HeaderComponent() {
             <a href="#home">DOWNY SHOES</a>
           </li>
 
-          <li className="secondary-nav">
-              <a href="HTML/checkout.html">
-                <i className="fas fa-shopping-cart"></i> Meu Carrinho
-              </a>
-            </li>
-
-          
+                   
           {categories && categories.map((category, index) => (
             <li key={index} className="secondary-nav">
               <a href={`/category/${category.idCategory}`}>{category.name}</a>
             </li>))}
+
+            <li className="secondary-nav">
+              <a href="/cart">
+                <i className="fas fa-shopping-cart"></i> Meu Carrinho
+              </a>
+           </li>
+           
+           <li className="secondary-nav">
+              <a href="/register">
+                <i className="fas fa-user-circle fa-lg"></i> Meu Cadastro
+              </a>
+           </li>
 
           {/*brands && brands.map((brand, index) => (
             <li key={index} className="secondary-nav">
