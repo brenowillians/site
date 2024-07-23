@@ -3,13 +3,15 @@ import Head from "next/head";
 import { useRouter } from 'next/router'
 import HeaderComponent from "@/components/header";
 import FooterComponent from "@/components/footer"
+import ShortCart from "./short-cart";
+import { useContextUser } from "@/hooks/useContextUser";
 
 type Props = {
   children: ReactNode
 }
 export default function BodyTemplate({ children }: Props) {
   const router = useRouter()
-
+  const context = useContextUser()
   return (
     <Fragment>
       <Head>
@@ -21,7 +23,23 @@ export default function BodyTemplate({ children }: Props) {
       </Head>
       <main>
         <HeaderComponent/>
-        {children}
+        <div>
+          <div className="short-cart" hidden={context.hidden}>
+            <div className="short-cart-header">
+              <div style={{width:"90%"}}>Meu Carrinho</div>
+              <div style={{width:"10%", cursor:"pointer"}} onClick={() => context.setHidden(!context.hidden)}>X</div>
+            </div>
+              <ShortCart/>
+            <div className="short-cart-footer">
+              <div className="buttons">
+                <a className="buttonCheckout" href="/signin">Concluir Compra</a>
+                <a className="clearCart" href="#" onClick={()=> context.clearCart()}>Limpar Carrinho</a>
+              </div>
+            </div>
+          </div>
+          {children}
+        </div>
+
       </main>
       <FooterComponent/>
     </Fragment>

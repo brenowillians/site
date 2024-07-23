@@ -75,10 +75,10 @@ export default function Cart() {
               context.totalCart + context.selectedShip?.value :
               context.totalCart? context.totalCart : 0
           } </h3>
-          <div className={styles.buttons}>
-            <a className={styles.buttonCheckout} href="confirmation.html">Checkout</a>
-            <a className={styles.cancel} href="../HTML/men.html">Continue comprando</a>
-            <a className={styles.clearCart} href="#" onClick={()=> context.clearCart()}>Limpar Carrinho</a>
+          <div className="buttons">
+            <a className="buttonCheckout" href="/confirmation">Confirmar Compra</a>
+            <a className="cancel" href="../HTML/men.html">Continue comprando</a>
+            <a className="clearCart" href="#" onClick={()=> context.clearCart()}>Limpar Carrinho</a>
           </div>
         </div>
       </div>

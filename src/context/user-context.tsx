@@ -4,10 +4,14 @@ import { DataUser, LoginParams } from "@/types/data-user";
 import { DataCart } from "@/types/data-cart";
 import { DataShip } from "@/types/data-ship";
 import { DataProduct } from "@/types/data-product";
+import http from "@/utils/http";
 
 const defaultProvider: UserValuesType = {
     user: null,
     setUser: () => null,
+
+    hidden: true,
+    setHidden: () => null,
   
     errorMessage: null,
     setErrorMessage: () => null,
@@ -76,13 +80,7 @@ const UserProvider = ({ children }: Props) => {
     const [totalCart, setTotalCart] = useState<number | null >(defaultProvider.totalCart)
     const [ship, setShip] = useState<DataShip[] | null >(defaultProvider.ship)
     const [selectedShip, setSelectedShip] = useState<DataShip | null >(defaultProvider.selectedShip)
-
-    const login = (params: LoginParams, errorCallback?: CallbackType) =>{
-    }
-
-    const logout = () =>{
-    }
-
+    const [hidden, setHidden] = useState<boolean >(defaultProvider.hidden)
 
     useEffect(() => {
         const loadUserStorage = async (): Promise<void> => {
@@ -91,6 +89,9 @@ const UserProvider = ({ children }: Props) => {
                 setCart(JSON.parse(storedCart))
             }
             const storedUser = window.localStorage.getItem('storageUser')!
+            if (storedUser) {
+                setUser(JSON.parse(storedUser))
+            }
         }
         loadUserStorage()
     }, [])
@@ -109,6 +110,46 @@ const UserProvider = ({ children }: Props) => {
             setTotalCart(0)
         }
     }, [cart])
+
+
+    const login = (params: LoginParams, successCallback?: CallbackType, errorCallback?: CallbackType) =>{
+        http.post('service-user/user-site/signin/', params)
+        .then(async res => {
+            window.localStorage.setItem('storageTokenKeyName', res.data.accessToken)
+            window.localStorage.setItem('storageTokenRefreshKeyName', res.data.refreshToken)
+            const userData: DataUser = res.data.user
+            setUser({ ...userData })
+            await window.localStorage.setItem('storageUser', JSON.stringify(userData))  
+        })
+        /*.then(
+            if(successCallback){
+                successCallback()
+            }
+        )*/
+
+            window.localStorage.setItem('storageTokenKeyName', "response.data.accessToken")
+            window.localStorage.setItem('storageTokenRefreshKeyName', "response.data.refreshToken")
+            const userData: DataUser = {
+                name: "",
+                login: "",
+                locked: false,
+                birthday: "",
+                gender: "",
+                phone: "",
+                mobile: "",
+                cpf: ""
+            }
+            setUser({ ...userData })
+             window.localStorage.setItem('storageUser', JSON.stringify(userData))  
+    }
+
+
+    const logout = () =>{
+        setUser(null)
+        //setHidden(true)
+        window.localStorage.removeItem('storageUser')
+        window.localStorage.removeItem('storageCart')
+    }
 
 
     const addProduct=(product: DataProduct) =>{
@@ -215,6 +256,8 @@ const UserProvider = ({ children }: Props) => {
 
         selectedShip: selectedShip,
         setSelectedShip: setSelectedShip,
+        hidden: hidden,
+        setHidden: setHidden,
       }
     
       return <UserContext.Provider value={values}>{children}</UserContext.Provider>

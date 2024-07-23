@@ -5,9 +5,12 @@ import { DataSize } from "@/types/data-size"
 import http from "@/utils/http"
 import React from "react"
 import { useEffect } from "react"
+import ShortCart from "./short-cart"
+import { useContextUser } from "@/hooks/useContextUser"
 
 
 export default function HeaderComponent() {
+  const context = useContextUser()
   const [categories, setCategories] =React.useState<DataCategory[]>([])
   const [brands, setBrands] =React.useState<DataBrand[]>([])
   const [products, setProducts] =React.useState<DataProduct[]>([])
@@ -120,7 +123,7 @@ export default function HeaderComponent() {
             </li>))}
 
             <li className="secondary-nav">
-              <a href="/cart">
+              <a href="#" onClick={()=> context.setHidden(!context.hidden)}>
                 <i className="fas fa-shopping-cart"></i> Meu Carrinho
               </a>
            </li>

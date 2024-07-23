@@ -44,20 +44,7 @@
     width: 30%
 }
 
-.clearCart{
-    border: 1px solid black;
-    background-color: black;
-    text-align: center;
-    color: white;
-    border-radius: 16px;
-    padding: 10px 0 10px 0;
-    margin-bottom: 10px;
-}
 
-.clearCart:hover {
-    color: black;
-    background-color: white;
-}
 
 
 .cartItem {
@@ -111,44 +98,6 @@
 
 }
 
-.buttons {
-    display: flex;
-    flex-direction: column;
-}
-
-.buttons>a {
-    text-decoration: none;
-}
-
-.buttonCheckout {
-    border: 1px solid black;
-    background-color: black;
-    text-align: center;
-    color: white;
-    border-radius: 16px;
-    padding: 10px 0 10px 0;
-    margin-bottom: 10px;
-}
-
-.cancel {
-    border: 1px solid black;
-    background-color: black;
-    text-align: center;
-    color: white;
-    border-radius: 16px;
-    padding: 10px 0 10px 0;
-    margin-bottom: 10px;
-}
-
-.cancel:hover {
-    color: black;
-    background-color: white;
-}
-
-.buttonCheckout:hover {
-    color: black;
-    background-color: white;
-}
 
 .remove {
     background: none;

@@ -6,11 +6,14 @@ import { DataUser, LoginParams } from "@/types/data-user"
 export type CallbackType = () => void
 
 export type UserValuesType ={
-    login: (params: LoginParams, errorCallback?: CallbackType) => void
+    login: (params: LoginParams, successCallback?: CallbackType, errorCallback?: CallbackType) => void
     logout: () => void
     
     user: DataUser | null
     setUser: (value: DataUser | null) => void
+
+    hidden: boolean 
+    setHidden: (value: boolean) => void
 
     errorMessage: string | null
     setErrorMessage: (value: string | null) => void

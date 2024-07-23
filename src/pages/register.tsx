@@ -1,5 +1,5 @@
 import styles from "../styles/register.module.css";
-export default function cadastro() {
+export default function register() {
 
     return ( 
     <form>
@@ -14,15 +14,15 @@ export default function cadastro() {
                   Nome Completo<br/>
                   <input type="text"
                   id="nome"
-                  name="nome" 
-                  placeholder="Seu Nome"></input>
+                  name="nome" ></input>
+                  
               </div>
               <div id="coluna2" className={styles.column}>
                 CPF<br/>
                 <input type="text" 
                 id="cpf" 
                 name="cpf" 
-                placeholder="Nº do CPF"></input>
+                ></input>
               </div>
             </div>
             <div className={styles.row}>
@@ -53,7 +53,7 @@ export default function cadastro() {
                 <input type="text" 
                   id="celular" 
                   name="celular" 
-                  placeholder="preenchemento obrigatório">
+                  placeholder="Preenchemento obrigatório">
                 </input>
               </div>
             </div>
@@ -138,7 +138,7 @@ export default function cadastro() {
                   //onclick="validar()"
                   value="Enviar"></input>
                   <br></br>
-                  <p>Já possui cadastro? <a href="/login">Faça login</a></p>
+                  <p>Já possui cadastro? <a href="/signin">Faça login</a></p>
               </div>
             </div>
 
