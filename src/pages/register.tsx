@@ -9,6 +9,7 @@ export default function register() {
             <br></br>
             <br></br>
             <br></br>
+            
             <div className={styles.row}>
               <div id="coluna2" className={styles.column}>
                   Nome Completo<br/>

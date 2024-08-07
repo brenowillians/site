@@ -1,5 +1,5 @@
 import { Fragment, useState } from "react";
-import styles from "../styles/shipping.module.css";
+import styles from "../styles/register.module.css";
 import router from "next/router";
 import { useContextUser } from "@/hooks/useContextUser";
 import { LoginParams } from "@/types/data-user";
@@ -26,7 +26,7 @@ export default function signin() {
 
     return (        
         
-        <div >
+        <div className={styles.column1}>
             <br></br>
             <br></br>
             <br></br>

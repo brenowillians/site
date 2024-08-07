@@ -278,6 +278,18 @@ figcaption {
 }
 
 
+.short-address-edit {
+  height: 400px;
+  width: 25%;
+  position: absolute;
+  right: 37%;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border: 2px solid; /* As 4 bordas sólidas com 25px de espessura */
+  border-color: gray  gray gray  gray; /* cores: topo, direita, inferior, esquerda */
+  z-index: 999;
+}
 .buttons {
   display: flex;
   flex-direction: column;

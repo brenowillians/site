@@ -121,13 +121,13 @@ const UserProvider = ({ children }: Props) => {
             setUser({ ...userData })
             await window.localStorage.setItem('storageUser', JSON.stringify(userData))  
         })
-        /*.then(
+        .then(async res => {
             if(successCallback){
                 successCallback()
             }
-        )*/
+        })
 
-            window.localStorage.setItem('storageTokenKeyName', "response.data.accessToken")
+            /*window.localStorage.setItem('storageTokenKeyName', "response.data.accessToken")
             window.localStorage.setItem('storageTokenRefreshKeyName', "response.data.refreshToken")
             const userData: DataUser = {
                 name: "",
@@ -140,7 +140,7 @@ const UserProvider = ({ children }: Props) => {
                 cpf: ""
             }
             setUser({ ...userData })
-             window.localStorage.setItem('storageUser', JSON.stringify(userData))  
+             window.localStorage.setItem('storageUser', JSON.stringify(userData))  */
     }
 
 

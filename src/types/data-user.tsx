@@ -1,3 +1,5 @@
+import { DataUserAddress } from "./data-user-address";
+
 export interface DataUser {
     idUserSite?: number;
     name: string ;
@@ -7,7 +9,8 @@ export interface DataUser {
     gender: string ;
     phone: string;
     mobile: string;
-    cpf: string 
+    cpf: string ;
+    userAddresses: DataUserAddress[];
 }
 
 export type LoginParams = {
