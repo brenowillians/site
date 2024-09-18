@@ -11,12 +11,13 @@ export interface DataUserAddress {
     state: string ;
     country: string ;
     idAddressType: number;
-    createdDate: string;
-    updatedDate: string;
-    deletedDate: string;  
+    primary: number;
+    createdDate?: string;
+    updatedDate?: string;
+    deletedDate?: string;  
 
-    idAddressType2: DataAddressType;
-    idUserSite2: DataUser;
+    idAddressType2?: DataAddressType;
+    idUserSite2?: DataUser;
 
 }
 

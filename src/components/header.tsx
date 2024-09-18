@@ -15,6 +15,7 @@ export default function HeaderComponent() {
   const [brands, setBrands] =React.useState<DataBrand[]>([])
   const [products, setProducts] =React.useState<DataProduct[]>([])
   const [sizes, setSizes] =React.useState<DataSize[]>([])
+  const [myData, setMyData] = React.useState<string>('signin')
 
     useEffect(()=>{
       const loadData = async () =>{
@@ -103,9 +104,22 @@ export default function HeaderComponent() {
       //setSnackMessage("Não foi possível processar a solicitação.")
   }
 
-    }
-    loadData()
+      }
+      loadData()
+
+      if(context.isLogged()) {
+        setMyData('/my-data')
+      }
     },[])
+
+    useEffect(()=>{ 
+      if(context.isLogged()) {
+        setMyData('/my-data')
+      }
+      else {
+        setMyData('/signin')
+      }
+    },[context.user])
 
     return (
       <header id="home">
@@ -129,7 +143,7 @@ export default function HeaderComponent() {
            </li>
            
            <li className="secondary-nav">
-              <a href="/register">
+              <a href={myData}>
                 <i className="fas fa-user-circle fa-lg"></i> Meu Cadastro
               </a>
            </li>

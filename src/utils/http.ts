@@ -20,7 +20,7 @@ http.interceptors.request.use(
             }
         }
         
-return config;
+        return config;
     },
     (error) => {
         return Promise.reject(error);
@@ -48,24 +48,37 @@ http.interceptors.response.use(
                     
                     const token = window.localStorage.getItem("storageTokenRefreshKeyName");
                     
-                    const { data } = await httpRefresh.get("service-user/staff/refresh",  {headers: {
+                    httpRefresh.get('service-user/staff/refresh/')
+                    .then(async res => {
+                        window.localStorage.setItem('storageTokenKeyName', res.data.accessToken)
+                        window.localStorage.setItem('storageTokenRefreshKeyName', res.data.refreshToken) 
+                    }).catch(err =>{
+                        console.log(err)
+                        window.localStorage.removeItem('storageUser')
+                        window.localStorage.removeItem('storageTokenKeyName')
+                        window.localStorage.removeItem('storageTokenRefreshKeyName')
+                        //router.replace('/')
+                    })
+
+/*                  const response = await httpRefresh.get("service-user/staff/refresh",  {headers: {
                         Authorization: `Bearer ${token}`
                     }});
                     
 
-                    //window.localStorage.setItem('storageTokenKeyName', data.data.accessToken)
-                    //window.localStorage.setItem('storageTokenRefreshKeyName', data.data.refreshToken)
+                    window.localStorage.setItem('storageTokenKeyName', response.data.accessToken)
+                    window.localStorage.setItem('storageTokenRefreshKeyName', response.data.refreshToken)
 
-                    
+                    */
                     return http(originalConfig);
                 } 
                 catch (_error) {
-                    /*if (axios.isAxiosError(_error) && _error.response?.status === 401) {
+                    console.log(_error)
+                    if (axios.isAxiosError(_error) && _error.response?.status === 401) {
                         window.localStorage.removeItem('userData')
                         window.localStorage.removeItem('storageTokenKeyName')
                         window.localStorage.removeItem('storageTokenRefreshKeyName')
-                        router.replace('/login')
-                    }*/
+                        //router.replace('/')
+                    }
                     
                     return Promise.reject(_error);
                 }

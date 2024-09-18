@@ -1,7 +1,9 @@
+import { DataAddressType } from "@/types/data-address-type"
 import { DataCart } from "@/types/data-cart"
 import { DataProduct } from "@/types/data-product"
 import { DataShip } from "@/types/data-ship"
 import { DataUser, LoginParams } from "@/types/data-user"
+import { DataUserAddress } from "@/types/data-user-address"
 
 export type CallbackType = () => void
 
@@ -9,6 +11,11 @@ export type UserValuesType ={
     login: (params: LoginParams, successCallback?: CallbackType, errorCallback?: CallbackType) => void
     logout: () => void
     
+    
+    updateAddress: (userAddress: DataUserAddress, successCallback?: CallbackType, errorCallback?: CallbackType) => void
+    createAddress: (userAddress: DataUserAddress, successCallback?: CallbackType, errorCallback?: CallbackType) => void
+    
+
     user: DataUser | null
     setUser: (value: DataUser | null) => void
 
@@ -30,6 +37,10 @@ export type UserValuesType ={
     selectedShip: DataShip | null
     setSelectedShip: (value: DataShip | null) => void
 
+
+    addressTypes: DataAddressType[] | null
+    setAddressTypes: (value: DataAddressType[] | null) => void
+
     addProduct: (dataProduct: DataProduct) => void
 
     removeProduct: (dataProduct: DataProduct) => void
@@ -40,4 +51,10 @@ export type UserValuesType ={
 
     totalCart: number | null
     setTotalCart: (value: number | null) => void
+
+    isLogged: ()=> boolean
+
+    getCode: (login: string, successCallback?: CallbackType,) => void
+
+
 }

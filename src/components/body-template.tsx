@@ -10,7 +10,6 @@ type Props = {
   children: ReactNode
 }
 export default function BodyTemplate({ children }: Props) {
-  const router = useRouter()
   const context = useContextUser()
   return (
     <Fragment>
@@ -32,7 +31,7 @@ export default function BodyTemplate({ children }: Props) {
               <ShortCart/>
             <div className="short-cart-footer">
               <div className="buttons">
-                <a className="buttonCheckout" href="/signin">Concluir Compra</a>
+                <a className="buttonCheckout" href={context.user? '/shipping': '/signin'}>Concluir Compra</a>
                 <a className="clearCart" href="#" onClick={()=> context.clearCart()}>Limpar Carrinho</a>
               </div>
             </div>

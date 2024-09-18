@@ -1,5 +1,5 @@
 import { useContextUser } from "@/hooks/useContextUser";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import styles from "../styles/shipping.module.css";
 import { DataUserAddress } from "@/types/data-user-address";
 export default function ShortAddress() {
@@ -7,77 +7,183 @@ export default function ShortAddress() {
     const context = useContextUser()
     const [selectedAddress, setSelectedAddress] = useState<number>()
     const [editAddress, setEditAddress] =useState<DataUserAddress | null>(null)
+    
 
+    const saveAddress =()=>{
+      //Salvar endereço
+      if(editAddress){
+        //Verificar se o endereço que estamos editando, é o mesmo
+        //que está no selectedAddress.
+        //caso positivo, atualizar o state editAddress como primary
+
+        //LEMBRAR que o state é imutável...
+
+        if(editAddress.idAddress){
+          context.updateAddress(editAddress)
+        }
+        else{
+          context.createAddress(editAddress)
+        }
+        
+        setEditAddress(null)
+      }
+
+    }
+
+    useEffect (()=>{
+
+    },[])
+
+    const handleAddress =(e: any)=>{
+        const newAddress = {...editAddress}
+        const { name, value } = e.target;
+        if(name=="primary"){
+          if(e.target.value=="0"){
+            newAddress.primary=1
+          }
+          else{
+            newAddress.primary=0
+          }
+        }
+        else{
+          console.log(e.target.value)
+          newAddress[name as keyof typeof newAddress] = e.target.value
+        }
+        console.log(newAddress)
+        setEditAddress(newAddress as DataUserAddress)
+    }
     return ( 
         <div>
         {context.user &&
                 <Fragment>
                   <div className="short-address-edit"  hidden={!editAddress}>
                     <div className="short-cart-header">
-                      <div style={{width:"90%"}}>Editar Endereço</div>
+                      <div style={{width:"90%"}}><strong>{editAddress?.idAddress?'Editar' : 'Cadastrar'} Endereço</strong></div>
                       <div style={{width:"10%", cursor:"pointer"}} onClick={() => setEditAddress(null)}>X</div>
                     </div>
                     <div className={styles.row}>
                       <div id="coluna2" className={styles.column}>
-                          Rua<br/>
-                          <input style={{width:"90%"}} type="text"
-                          id="rua"
+                      <strong>Tipo</strong><br/>
+                      <select style={{width:"90%"}} 
+                        id="idAddressType" 
+                        value={editAddress?.idAddressType}
+                        name="idAddressType" 
+                        onChange={handleAddress}
+                      >
+                        {context.addressTypes && context.addressTypes.map((addressType, index) =>
+                          <option key={index} value={addressType.idAddressType}>{addressType.description}</option>
+                        )}
+                      </select>
+                      </div>
+                    </div>
+                    <div className={styles.row}>
+                      <div id="coluna2" className={styles.column}>
+                      <strong>Rua</strong><br/>
+                        <input style={{width:"90%"}} type="text"
+                          id="street"
+                          name="street"
+                          onChange={handleAddress}
                           value={editAddress?.street}
-                          name="rua" ></input>
+                        />
                       </div>
                     </div>
                     <div className={styles.row}>  
                       <div id="coluna2" className={styles.column}>
-                        Número<br/>
+                      <strong>Número</strong><br/>
                         <input style={{width:"90%"}} type="text" 
-                        id="numero" 
+                        id="number" 
                         value={editAddress?.number}
-                        name="numero" 
+                        name="number" 
+                        onChange={handleAddress}
                         ></input>
                       </div>
                     </div>
                     <div className={styles.row}>  
                       <div id="coluna2" className={styles.column}>
-                        Cidade<br/>
+                      <strong> Cidade</strong><br/>
                         <input style={{width:"90%"}} type="text" 
-                        id="cidade" 
+                        id="city" 
                         value={editAddress?.city}
-                        name="cidade" 
+                        name="city" 
+                        onChange={handleAddress}
                         ></input>
                       </div>
                     </div>
                     <div className={styles.row}>  
                       <div id="coluna2" className={styles.column}>
-                        Estado<br/>
+                      <strong>Estado</strong><br/>
                         <input style={{width:"90%"}} type="text" 
-                        id="Estado" 
+                        id="state" 
                         value={editAddress?.state}
-                        name="Estado" 
+                        name="state" 
+                        onChange={handleAddress}
                         ></input>
                       </div>
                     </div>
                     <div className={styles.row}>  
                       <div id="coluna2" className={styles.column}>
-                        País<br/>
+                      <strong>País</strong><br/>
                         <input style={{width:"90%"}} type="text" 
-                        id="país" 
+                        id="country" 
                         value={editAddress?.country}
-                        name="país" 
+                        name="country" 
+                        onChange={handleAddress}
                         ></input>
                       </div>
                     </div>
                     <div className={styles.row}>  
                       <div id="coluna2" className={styles.column}>
-                        CEP<br/>
+                      <strong> CEP</strong><br/>
                         <input style={{width:"90%"}} type="text" 
-                        id="cep" 
+                        id="zipCode" 
                         value={editAddress?.zipCode}
-                        name="cep" 
+                        name="zipCode" 
+                        onChange={handleAddress}
                         ></input>
                       </div>
                     </div>
+                    <div className={styles.row}>  
+                      <div id="coluna2" className={styles.column}>
+                        <strong>Endereço Principal</strong>
+                        <input style={{width:"90%"}} type="checkbox" 
+                        id="primary" 
+                        value={editAddress?.primary==1? 1: 0}
+                        name="primary" 
+                        onClick={handleAddress}
+                        checked={editAddress?.primary==1}
+                        ></input> 
+                      </div>
+                    </div>
+                    
+                    <div className={styles.row}>  
+                      <div id="coluna2" className={styles.column}>
+                        <a className={styles.buttonCheckout}  href="#" onClick={()=>saveAddress()}>Salvar</a>
+                      </div>
+                    </div>                    
+                    
                   </div>
-                  <h3 style={{marginLeft:"20px"}}>Entrega</h3>
+
+                  <h3 style={{marginLeft:"20px"}}>
+                    Endereço de Entrega 
+                    &nbsp;&nbsp;&nbsp;
+                    <button 
+                      id="remove" 
+                      className={styles.remove} 
+                      onClick={()=> setEditAddress({
+                        idUserSite: context.user?.idUserSite ?? 0,
+                        street: '' ,
+                        number: '' ,
+                        zipCode: '' ,
+                        city: '' ,
+                        state: '' ,
+                        country: '' ,
+                        idAddressType: 2,
+                        primary: 1,
+                      })}
+                    >
+                      <i className="fas fa-plus fa-1x"></i>
+                    </button>
+                  </h3>
                    {context.user.userAddresses && context.user.userAddresses.map((address, index) => (
                     <div className={styles.card}>
                       <p>
@@ -87,12 +193,12 @@ export default function ShortAddress() {
                           id="address" 
                           value={address.idAddress}
                           onClick={()=> setSelectedAddress(address.idAddress)}
-                          checked={address.idAddress == selectedAddress}
+                          checked={address.idAddress == selectedAddress || address.primary==1}
                         />
                       {address.street}, {address.number}</p>                
                       <p>{address.city} - {address.state} - {address.country}</p>  
                       <p>{address.zipCode}</p>
-                      <div className={styles.buttonCheckout} style={{width:"120px"}}> <a href="#" onClick={() => setEditAddress(address)}>Modificar</a>    
+                      <div style={{width:"120px"}}> <a className={styles.buttonCheckout} style={{position:"relative", top:"20px"}}  href="#" onClick={() => setEditAddress(address)}>Modificar</a>    
                       </div>
                     </div>
                   ))}

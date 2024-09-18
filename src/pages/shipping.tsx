@@ -18,14 +18,15 @@ export default function shipping() {
                 <div className={styles.items2}>        
                     <div className={styles.card}>
                         <ShortAddress/>
-                        <div className={styles.buttonCheckout}> <a href="/payment">Ir para pagamento</a>    
-                        </div>
                     </div>
                 </div>
             </div>
             <div  className={styles.col2}>
-                <div className={styles.items2}>        
-                    <ShortCart/>
+                <div className={styles.items2}>
+
+                        <ShortCart/>
+  
+                    <div className={styles.buttonCheckout} style={{position:"relative"}}> <a href="payment">Ir para pagamento</a>   </div>
                 </div>
                 
             </div>

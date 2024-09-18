@@ -1,10 +1,19 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import styles from "../styles/register.module.css";
 import router from "next/router";
 import { useContextUser } from "@/hooks/useContextUser";
 import { LoginParams } from "@/types/data-user";
 export default function signin() {
+
+
     const context = useContextUser()
+
+    useEffect(()=>{
+        if(context.isLogged()){
+            router.push('/my-data')
+        }
+    },[])
+    
     const [ exibir, setExibir] = useState<boolean>(false)
     const [loginData, setLoginData] = useState<LoginParams>({
         login: "",
@@ -46,7 +55,8 @@ export default function signin() {
               <br></br>
               <input type="submit"
                   //onclick="validar()"
-                  value="Validar" onClick={() =>setExibir(true)}></input>
+                  //onClick={() =>setExibir(true)}
+                  value="Validar" onClick={()=>{context.getCode(loginData.login, ()=> setExibir(true))}} ></input>
                   <br></br>
               {exibir && 
               <Fragment>
@@ -59,11 +69,24 @@ export default function signin() {
                           placeholder=""></input>
                       </div>
                       <br></br>
+                      
+                      Um código de acesso foi enviado para o seu e-mail.
+                      <br></br>
                 <input type="submit"
                   //onclick="validar()"
                   value="acessar" onClick={() =>context.login(loginData, () =>router.push('/shipping'))}></input>
-            </Fragment>
+                </Fragment>
               }
+
+            <br></br>
+            {!context.user?
+                <div id="coluna2"  className={styles.column}>
+                <a href='/register'>
+                    Cadastre-se
+                </a>
+                </div>
+            :
+            null}
         </div>
         
 

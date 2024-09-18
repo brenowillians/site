@@ -76,7 +76,7 @@ export default function Cart() {
               context.totalCart? context.totalCart : 0
           } </h3>
           <div className="buttons">
-            <a className="buttonCheckout" href="/signin">Confirmar Compra</a>
+            <a className="buttonCheckout" href={context.isLogged()? '/shipping': "/signin"}>Confirmar Compra</a>
             <a className="cancel" href="../HTML/men.html">Continue comprando</a>
             <a className="clearCart" href="#" onClick={()=> context.clearCart()}>Limpar Carrinho</a>
           </div>
